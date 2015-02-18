@@ -32,11 +32,11 @@ namespace mspc {
 // after a call to queue::pop
 enum pop_status {
     // there is data in the value field of the pop_result field
-    Data,
+    data,
     // the is no more data in the queue, and in the pop_result
-    Empty,
+    empty,
     // the data is invalid
-    Inconsistent
+    inconsistent
 };
 
 // Contains the result of a call queue::pop
@@ -130,12 +130,12 @@ struct queue {
             delete this->tail;
             this->tail = next;
             auto ret = next->value._;
-            return pop_result<T>{ret, Data};
+            return pop_result<T>{ret, data};
         }
         if (this->head.load(std::memory_order_acquire) == tail) {
-            return pop_result<T>{T(), Empty};
+            return pop_result<T>{T(), empty};
         } else {
-            return pop_result<T>{T(), Inconsistent};
+            return pop_result<T>{T(), inconsistent};
         }
     }
 
