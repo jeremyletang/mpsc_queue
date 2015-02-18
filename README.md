@@ -1,2 +1,1 @@
-# mspc_queue
-mspc queue
+# mpsc_queue
