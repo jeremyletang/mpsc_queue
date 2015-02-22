@@ -26,7 +26,7 @@
 #include <atomic>
 #include <iostream>
 
-namespace mspc {
+namespace mpsc {
 
 // Status of the queue
 // after a call to queue::pop
@@ -109,9 +109,18 @@ struct queue {
     // remove all remaining stored values
     ~queue() {
         if (tail != nullptr) {
-            while (this->pop().status != Empty) {}
+            while (this->pop().status != empty) {}
             delete this->tail;
         }
+    }
+
+    queue clone() {
+        auto new_q = queue<T>();
+
+        new_q.head = this->head;
+        new_q.tail = this->tail;
+
+        return std::move(new_q);
     }
 
     // insert a new value inside the queue
@@ -137,6 +146,10 @@ struct queue {
         } else {
             return pop_result<T>{T(), inconsistent};
         }
+    }
+
+    bool is_empty() {
+       return this->head.load(std::memory_order_acquire) == tail;
     }
 
 };
