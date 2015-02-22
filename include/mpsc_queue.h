@@ -23,6 +23,9 @@
 // port of
 // http://www.1024cores.net/home/lock-free-algorithms/queues/non-intrusive-mpsc-node-based-queue
 
+#ifndef MPSC_QUEUE
+#define MPSC_QUEUE
+
 #include <atomic>
 #include <iostream>
 
@@ -155,3 +158,6 @@ struct queue {
 };
 
 }
+
+#endif
+
