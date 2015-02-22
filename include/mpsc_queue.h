@@ -127,8 +127,8 @@ struct queue {
     }
 
     // insert a new value inside the queue
-    void push(T v) {
-        auto n = new node<T>(option<T>{v, true});
+    void push(T&& v) {
+        auto n = new node<T>(option<T>{std::move(v), true});
         auto prev = this->head.exchange(n, std::memory_order_acq_rel);
         prev->next.store(n, std::memory_order_release);
     }
