@@ -151,7 +151,7 @@ struct queue {
         }
     }
 
-    bool is_empty() {
+    bool is_empty() const {
        return this->head.load(std::memory_order_acquire) == tail;
     }
 
